@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Фёдор · BitForge</title>
+<title>aviator_1246</title>
 
 <style>
 * {
@@ -15,12 +15,11 @@
 
 body {
   min-height: 100vh;
-  background: radial-gradient(circle at top, #4ca1af, #1f2933);
+  background: radial-gradient(circle at top, #1a2a33, #0d1115); /* сделано темнее */
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  overflow: hidden;
 }
 
 /* 🌊 BACKGROUND FLOAT */
@@ -28,7 +27,7 @@ body::before {
   content: "";
   position: absolute;
   inset: -50%;
-  background: linear-gradient(120deg, rgba(255,255,255,0.08), transparent);
+  background: linear-gradient(120deg, rgba(255,255,255,0.05), transparent);
   animation: bgMove 20s linear infinite;
 }
 
@@ -44,27 +43,23 @@ body::before {
   padding: 32px;
   text-align: center;
   position: relative;
-
-  background: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.08); /* чуть темнее */
   backdrop-filter: blur(22px) saturate(170%);
   -webkit-backdrop-filter: blur(22px) saturate(170%);
   border-radius: 26px;
-  border: 1px solid rgba(255,255,255,0.3);
-
-  box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
   animation: cardEnter 1s ease forwards, glassPulse 6s ease-in-out infinite;
 }
 
-/* CARD APPEAR */
 @keyframes cardEnter {
   from { opacity: 0; transform: translateY(40px) scale(0.95); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* GLASS BREATH */
 @keyframes glassPulse {
-  0%,100% { backdrop-filter: blur(20px); }
-  50% { backdrop-filter: blur(28px); }
+  0%,100% { backdrop-filter: blur(18px); }
+  50% { backdrop-filter: blur(26px); }
 }
 
 h1 {
@@ -75,8 +70,8 @@ h1 {
 }
 
 @keyframes textGlow {
-  0%,100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-  50% { text-shadow: 0 0 25px rgba(255,255,255,0.6); }
+  0%,100% { text-shadow: 0 0 8px rgba(255,255,255,0.2); }
+  50% { text-shadow: 0 0 20px rgba(255,255,255,0.4); }
 }
 
 p, .item {
@@ -86,10 +81,10 @@ p, .item {
   animation: fadeUp 0.8s ease forwards;
 }
 
-p:nth-child(2) { animation-delay: 0.2s; }
-p:nth-child(3) { animation-delay: 0.4s; }
-.item:nth-child(5) { animation-delay: 0.6s; }
-.item:nth-child(6) { animation-delay: 0.8s; }
+.fade-delay-1 { animation-delay: 0.2s; }
+.fade-delay-2 { animation-delay: 0.4s; }
+.fade-delay-3 { animation-delay: 0.6s; }
+.fade-delay-4 { animation-delay: 0.8s; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(15px); }
@@ -110,123 +105,40 @@ p:nth-child(3) { animation-delay: 0.4s; }
   opacity: 0.5;
 }
 
-/* ➕ BUTTON */
-.image-button {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: none;
-
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(12px);
-  color: white;
-  font-size: 26px;
-  cursor: pointer;
-  z-index: 100;
-
-  animation: bounce 2.5s infinite;
-}
-
-@keyframes bounce {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
 /* 🌫️ OVERLAY */
 .overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(30px) saturate(180%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
+  display: none; /* полностью убираем всплывающее окно */
 }
 
-.overlay.show {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.overlay img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  border-radius: 22px;
-  animation: zoomIn 0.6s ease forwards;
-}
-
-@keyframes zoomIn {
-  from { transform: scale(0.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.close-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(10px);
-  color: white;
-  font-size: 22px;
-  cursor: pointer;
-}
 </style>
 </head>
 
 <body>
 
-<button class="image-button" id="openImg">+</button>
-
-<div class="overlay" id="overlay">
-  <button class="close-btn" id="closeImg">✕</button>
-  <img src="https://avatars.mds.yandex.net/i?id=5f728502921ae37ecfe34c0860537107_l-5885375-images-thumbs&n=13">
-</div>
-
-<div class="card" id="card">
+<main class="card" id="card">
   <h1>БИО</h1>
-  <p><strong>‼️ Перед тем как написать:</strong> @NoHiRF</p>
-  <p><strong>Telegram:</strong> @aviator_1246</p>
-
-  <p>
+  <p class="fade-delay-1"><strong>‼️ Перед тем как написать:</strong> @NoHiRF</p>
+  <p class="fade-delay-2"><strong>Telegram:</strong> @aviator_1246</p>
+  <p class="fade-delay-3">
     Языки:
-    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg"> Русский,
-    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg"> English
+    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg" alt="RU"> Русский,
+    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg" alt="EN"> English
   </p>
-
-  <div class="item">📅 4 декабря</div>
-  <div class="item">✈️ Авиация, споттинг</div>
-  <div class="item">🏡 🇦🇲 Армения</div>
-  <div class="item">🌍 🇷🇺 Русский</div>
-
+  <div class="item fade-delay-1">📅 4 декабря</div>
+  <div class="item fade-delay-2">✈️ Авиация, споттинг</div>
+  <div class="item fade-delay-3">🏡 🇦🇲 Армения</div>
+  <div class="item fade-delay-4">🌍 🇷🇺 Русский</div>
   <div class="version">v6.0 Ultra Motion</div>
-</div>
+</main>
 
 <script>
-const openBtn = document.getElementById('openImg');
-const closeBtn = document.getElementById('closeImg');
-const overlay = document.getElementById('overlay');
 const card = document.getElementById('card');
-
-openBtn.onclick = () => overlay.classList.add('show');
-closeBtn.onclick = () => overlay.classList.remove('show');
 
 /* 🪟 PARALLAX */
 document.addEventListener('mousemove', e => {
   const x = (window.innerWidth / 2 - e.clientX) / 30;
   const y = (window.innerHeight / 2 - e.clientY) / 30;
-  card.style.transform = `translate(${x}px, ${y}px)`;
+  card.style.transform = `translate(${x}px, ${y}px) scale(1)`;
 });
 </script>
 
