@@ -1,209 +1,234 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Фёдор (BitForge)</title>
-  <style>
-    /* Общие стили */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #2c3e50, #4ca1af);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      background-size: cover;
-      background-attachment: fixed;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Фёдор · BitForge</title>
 
-    /* Карточка */
-    .card {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-      max-width: 450px;
-      text-align: center;
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-      position: relative;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
 
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    }
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #4ca1af, #1f2933);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  overflow: hidden;
+}
 
-    h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-      color: #ffffff;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
+/* 🌊 BACKGROUND FLOAT */
+body::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.08), transparent);
+  animation: bgMove 20s linear infinite;
+}
 
-    h2 {
-      font-size: 22px;
-      font-weight: normal;
-      color: #eeeeee;
-      margin-bottom: 20px;
-    }
+@keyframes bgMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50%); }
+}
 
-    p {
-      font-size: 18px;
-      color: #d1d1d1;
-      margin: 10px 0;
-      line-height: 1.6;
-    }
+/* 🧊 CARD */
+.card {
+  width: 90%;
+  max-width: 420px;
+  padding: 32px;
+  text-align: center;
+  position: relative;
 
-    .emoji {
-      font-size: 24px;
-    }
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(22px) saturate(170%);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,0.3);
 
-    /* Кнопка для изображения */
-    .image-button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 40px;
-      height: 40px;
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 24px;
-      color: white;
-      border-radius: 50%;
-      text-align: center;
-    }
+  box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+  animation: cardEnter 1s ease forwards, glassPulse 6s ease-in-out infinite;
+}
 
-    /* Стиль для картинки на весь экран */
-    .full-screen-image {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://avatars.mds.yandex.net/i?id=5f728502921ae37ecfe34c0860537107_l-5885375-images-thumbs&n=13');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease-in-out;
-    }
+/* CARD APPEAR */
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-    .show-image {
-      opacity: 1;
-      pointer-events: auto;
-    }
+/* GLASS BREATH */
+@keyframes glassPulse {
+  0%,100% { backdrop-filter: blur(20px); }
+  50% { backdrop-filter: blur(28px); }
+}
 
-    /* Стиль для закрытия картинки */
-    .close-image {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 20px;
-    }
+h1 {
+  font-size: 30px;
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+  animation: textGlow 4s ease-in-out infinite;
+}
 
-    /* Изображения флагов */
-    .flag {
-      width: 30px;
-      height: 20px;
-      margin-right: 5px;
-    }
+@keyframes textGlow {
+  0%,100% { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+  50% { text-shadow: 0 0 25px rgba(255,255,255,0.6); }
+}
 
-    /* Стили для чекбоксов */
-    .checkbox-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 10px 0;
-    }
-    
-    .checkbox-item input[type="checkbox"] {
-      margin-right: 10px;
-    }
+p, .item {
+  font-size: 15px;
+  margin: 10px 0;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
+}
 
-    /* Версия сайта */
-    .version {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.5);
-    }
+p:nth-child(2) { animation-delay: 0.2s; }
+p:nth-child(3) { animation-delay: 0.4s; }
+.item:nth-child(5) { animation-delay: 0.6s; }
+.item:nth-child(6) { animation-delay: 0.8s; }
 
-  </style>
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.flag {
+  width: 26px;
+  vertical-align: middle;
+  margin: 0 4px;
+}
+
+.version {
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+/* ➕ BUTTON */
+.image-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(12px);
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 100;
+
+  animation: bounce 2.5s infinite;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* 🌫️ OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(30px) saturate(180%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 22px;
+  animation: zoomIn 0.6s ease forwards;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+</style>
 </head>
+
 <body>
-  <!-- Кнопка для изображения -->
-  <button class="image-button" id="showImageBtn">+</button>
 
-  <!-- Картинка, которая будет отображаться на весь экран -->
-  <div class="full-screen-image" id="fullScreenImage">
-    <!-- Кнопка закрытия изображения -->
-    <button class="close-image" id="closeImageBtn">X</button>
-  </div>
+<button class="image-button" id="openImg">+</button>
 
-  <div class="card">
-    <h1>БИО</h1>
-    <p><strong>‼️ Перед тем как написать в тг, прочитать:</strong> @NoHiRF ‼️</p>
-    <p><strong>Юзернейм тг:</strong> @Aviator_1246</p>
-    <p>Языки: 
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/320px-Flag_of_Russia.svg.png" class="flag" alt="Русский"> Русский,
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_Kingdom.svg" class="flag" alt="Английский"> Английский,
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Flag_of_Armenia.svg/320px-Flag_of_Armenia.svg.png" class="flag" alt="Армянский"> Армянский
-    </p>
-    
-    <div class="checkbox-item">
-      <input type="checkbox" id="birthday" disabled>
-      <label for="birthday">📅 Дата рождения: 4 декабря</label>
-    </div>
-    
-    <div class="checkbox-item">
-      <input type="checkbox" id="hobbies" checked disabled>
-      <label for="hobbies">✈️ Люблю: Авиация, споттинг (авиационный)</label>
-    </div>
-    
-    <div class="checkbox-item">
-      <input type="checkbox" id="location" disabled>
-      <label for="location">🏡 Живу в: 🇦🇲 Армения</label>
-    </div>
-    
-    <div class="checkbox-item">
-      <input type="checkbox" id="nationality" disabled>
-      <label for="nationality">🌍 Национальность: 🇷🇺 Русский</label>
-    </div>
+<div class="overlay" id="overlay">
+  <button class="close-btn" id="closeImg">✕</button>
+  <img src="https://avatars.mds.yandex.net/i?id=5f728502921ae37ecfe34c0860537107_l-5885375-images-thumbs&n=13">
+</div>
 
-    <div class="version">v3.1</div>
-  </div>
+<div class="card" id="card">
+  <h1>БИО</h1>
+  <p><strong>‼️ Перед тем как написать:</strong> @NoHiRF</p>
+  <p><strong>Telegram:</strong> @aviator_1246</p>
 
-  <script>
-    // Функциональность кнопки для показа картинки
-    const showImageBtn = document.getElementById('showImageBtn');
-    const fullScreenImage = document.getElementById('fullScreenImage');
-    const closeImageBtn = document.getElementById('closeImageBtn');
+  <p>
+    Языки:
+    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg"> Русский,
+    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg"> English
+  </p>
 
-    // Показываем картинку
-    showImageBtn.addEventListener('click', () => {
-      fullScreenImage.classList.add('show-image');
-    });
+  <div class="item">📅 4 декабря</div>
+  <div class="item">✈️ Авиация, споттинг</div>
+  <div class="item">🏡 🇦🇲 Армения</div>
+  <div class="item">🌍 🇷🇺 Русский</div>
 
-    // Закрываем картинку
-    closeImageBtn.addEventListener('click', () => {
-      fullScreenImage.classList.remove('show-image');
-    });
-  </script>
+  <div class="version">v6.0 Ultra Motion</div>
+</div>
+
+<script>
+const openBtn = document.getElementById('openImg');
+const closeBtn = document.getElementById('closeImg');
+const overlay = document.getElementById('overlay');
+const card = document.getElementById('card');
+
+openBtn.onclick = () => overlay.classList.add('show');
+closeBtn.onclick = () => overlay.classList.remove('show');
+
+/* 🪟 PARALLAX */
+document.addEventListener('mousemove', e => {
+  const x = (window.innerWidth / 2 - e.clientX) / 30;
+  const y = (window.innerHeight / 2 - e.clientY) / 30;
+  card.style.transform = `translate(${x}px, ${y}px)`;
+});
+</script>
+
 </body>
 </html>
